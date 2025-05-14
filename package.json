@@ -1,0 +1,35 @@
+{
+  "name": "tutorial-messages-node-rcs_suggested_replies",
+  "version": "1.0.0",
+  "description": "Sample application to show how to send and recive Rich Communication Services suggested reply messages with the Vonage Messages API.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vonage-Community/tutorial-messages-node-rcs_suggested_replies.git"
+  },
+  "keywords": [
+    "RCS",
+    "Rich",
+    "Communications",
+    "Services",
+    "Vonage",
+    "Messages",
+    "API.",
+    "Node.js.",
+    "Javascript"
+  ],
+  "author": "Benjamin Aronov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Vonage-Community/tutorial-messages-node-rcs_suggested_replies/issues"
+  },
+  "homepage": "https://github.com/Vonage-Community/tutorial-messages-node-rcs_suggested_replies#readme",
+  "dependencies": {
+    "@vonage/server-sdk": "^3.21.0",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0"
+  }
+}
