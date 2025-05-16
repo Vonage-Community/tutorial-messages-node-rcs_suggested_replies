@@ -28,6 +28,7 @@
   },
   "homepage": "https://github.com/Vonage-Community/tutorial-messages-node-rcs_suggested_replies#readme",
   "dependencies": {
+    "@vonage/jwt": "1.11.0",
     "@vonage/server-sdk": "^3.21.0",
     "dotenv": "^16.5.0",
     "express": "^5.1.0"

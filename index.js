@@ -2,13 +2,18 @@ const express = require('express');
 const fs = require('fs');
 const dotenv = require('dotenv');
 const { Vonage } = require('@vonage/server-sdk');
+const { verifySignature } = require('@vonage/jwt');
 
 dotenv.config();
 
 const app = express();
 app.use(express.json());
 
-const privateKey = fs.readFileSync(process.env.VONAGE_PRIVATE_KEY_PATH);
+const PORT = process.env.PORT || 3000;
+
+const VONAGE_API_SIGNATURE_SECRET = process.env.VONAGE_API_SIGNATURE_SECRET;
+
+const privateKey = fs.readFileSync(process.env.VONAGE_PRIVATE_KEY);
 
 const vonage = new Vonage({
   applicationId: process.env.VONAGE_APPLICATION_ID,
@@ -60,7 +65,14 @@ app.post('/send-rcs', async (req, res) => {
   }
 });
 
-app.post('/inbound_rcs', (req, res) => {
+app.post('/inbound_rcs', async (req, res) => {
+  const token = request.headers.authorization.split(' ')[1];
+
+  if (!verifySignature(token, VONAGE_API_SIGNATURE_SECRET)) {
+    res.status(401).end();
+    return;
+  }
+
   const inboundMessage = req.body;
 
   if (inboundMessage.channel === 'rcs' && inboundMessage.message_type === 'reply') {
@@ -78,19 +90,17 @@ app.post('/inbound_rcs', (req, res) => {
       text: `${userSelection} is a great choice!`
     };
 
-    vonage.messages.send(confirmationMessage)
-      .then(response => {
-        console.log('Confirmation sent:', response);
-      })
-      .catch(error => {
+    try {
+      const response = await vonage.messages.send(confirmationMessage);
+      console.log('Confirmation sent:', response);
+    } catch (error) {
         console.error('Error sending confirmation:', error);
-      });
+    };
   }
 
   res.status(200).end();
 });
 
-const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
