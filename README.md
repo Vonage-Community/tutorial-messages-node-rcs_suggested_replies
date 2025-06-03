@@ -1,7 +1,7 @@
 # How to Send and Receive RCS Suggested Replies with Node.js
 A node application that allows you to send and receive Rich Communications Services suggested reply messages.
 
-> You can find full step-by-step instructions on the [Vonage Developer Blog](#). (Not published yet)
+> You can find full step-by-step instructions on the [Vonage Developer Blog](https://developer.vonage.com/en/blog/how-to-send-and-receive-rcs-suggested-replies-with-node-js).
 
 
 
